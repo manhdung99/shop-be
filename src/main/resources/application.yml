@@ -1,0 +1,37 @@
+server:
+  port: 8080
+
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/shopgiaydep?useSSL=false&serverTimezone=Asia/Ho_Chi_Minh&allowPublicKeyRetrieval=true
+    username: shopuser
+    password: shop123
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update        # tự tạo/cập nhật bảng khi chạy
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect
+        format_sql: true
+
+  jackson:
+    serialization:
+      fail-on-empty-beans: false
+
+# JWT config
+app:
+  jwt:
+    secret: shopgiaydep-super-secret-key-2025-change-in-production
+    expiration: 86400000   # 24 giờ (ms)
+
+# CORS - cho phép Vue dev server gọi API
+  cors:
+    allowed-origins: http://localhost:5173
+
+logging:
+  level:
+    com.shopgiaydep: DEBUG
+    org.springframework.security: DEBUG
