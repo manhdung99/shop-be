@@ -21,15 +21,22 @@ spring:
     serialization:
       fail-on-empty-beans: false
 
-# JWT config
+# Tăng giới hạn upload file
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 20MB
+
+# App config
 app:
   jwt:
     secret: shopgiaydep-super-secret-key-2025-change-in-production
     expiration: 86400000   # 24 giờ (ms)
-
-# CORS - cho phép Vue dev server gọi API
   cors:
     allowed-origins: http://localhost:5173
+  upload:
+    dir: uploads                        # thư mục lưu ảnh (relative to working dir)
+    base-url: http://localhost:8080     # base URL để tạo link ảnh
 
 logging:
   level:

@@ -37,6 +37,9 @@ public class SecurityConfig {
             .cors(cors -> cors.configurationSource(corsConfigurationSource()))
             .sessionManagement(s -> s.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .authorizeHttpRequests(auth -> auth
+                // Public - static files
+                .requestMatchers(HttpMethod.GET, "/uploads/**").permitAll()
+
                 // Public - shop endpoints
                 .requestMatchers(HttpMethod.GET, "/api/products/**").permitAll()
                 .requestMatchers(HttpMethod.GET, "/api/categories/**").permitAll()
@@ -44,6 +47,7 @@ public class SecurityConfig {
                 .requestMatchers(HttpMethod.POST, "/api/auth/login").permitAll()
 
                 // Admin - cần JWT
+                .requestMatchers(HttpMethod.POST, "/api/upload/**").hasRole("ADMIN")
                 .requestMatchers("/api/import/**").hasRole("ADMIN")
                 .requestMatchers("/api/admin/**").hasRole("ADMIN")
                 .requestMatchers(HttpMethod.POST, "/api/products/**").hasRole("ADMIN")
